@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "4e5dfb8d-52e9-4331-8ae7-394a4579ea85",
+		"name": "keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1302156"
+	},
+	"item": [
+		{
+			"name": "connectToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "HSF",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "9363152316",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "HSF.Api.Sale api1.read offline_access",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "administrator@localhost",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Administrator1!",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "client1",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "hossein",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "111111",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "IWKQpuleBS2HVVRix9TkjgF1I0Bun8BY",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8181/realms/hsf/protocol/openid-connect/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"realms",
+						"hsf",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
