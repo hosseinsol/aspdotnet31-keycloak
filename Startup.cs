@@ -65,7 +65,7 @@ namespace dotnet31Keyclock
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "http://localhost:8181/realms/[realmname]"; // Keycloak URL
+                    options.Authority = "http://localhost:8181/realms/hsf"; // Keycloak URL
                     options.Audience = "account";
                     options.RequireHttpsMetadata = false;
 
