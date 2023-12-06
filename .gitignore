@@ -6,3 +6,4 @@
 /bin/Debug/netcoreapp3.1
 /obj/Debug/netcoreapp3.1
 /obj
+/keycloak-docker-compose/mysql_data
