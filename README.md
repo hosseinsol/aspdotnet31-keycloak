@@ -1,11 +1,9 @@
 "# aspdotnet31-keycloak" 
 
-get token:
+first run cmd in keycloak-docker-compose
+run docker compose up -d
+Import realm exports from keycloak-docker-compose
 
-curl --location 'localhost:8181/realms/hsf/protocol/openid-connect/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=password' \
---data-urlencode 'client_id=client1' \
---data-urlencode 'username=hossein' \
---data-urlencode 'password=111111' \
---data-urlencode 'client_secret=IWKQpuleBS2HVVRix9TkjgF1I0Bun8BY'
+Import postman collection and environment from resources
+
+open slution in visual stadio and run
