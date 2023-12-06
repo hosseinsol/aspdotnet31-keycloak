@@ -1,0 +1,36 @@
+version: '3'
+services:
+    mariadb:
+      image: mariadb
+      container_name: hsf_mariadb
+      restart: always
+      volumes:
+        - ./mysql_data:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: keycloak
+        MYSQL_USER: keycloak
+        MYSQL_PASSWORD: password
+      ports:
+       - 3306:3306
+      # Copy-pasted from https://github.com/docker-library/mariadb/issues/94
+      healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "--silent"]
+    keycloak:
+        image: quay.io/keycloak/keycloak:22.0.4
+        container_name: hsf_keyclock
+        restart: always
+        environment:
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+          - DB_VENDOR= mariadb
+          - DB_ADDR= mariadb
+          - DB_DATABASE= keycloak
+          - DB_USER= keycloak
+          - DB_PASSWORD= password
+        depends_on:
+          - mariadb
+        ports:
+          - 8181:8080
+        command:
+          - start-dev
