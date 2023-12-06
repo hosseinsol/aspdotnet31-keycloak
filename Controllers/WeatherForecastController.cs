@@ -41,7 +41,21 @@ namespace dotnet31Keyclock.Controllers
         public IActionResult G2()
         {
             var a = User.Claims.FirstOrDefault()?.Value;
-            return Ok("Authorized"+a);
+            return Ok("Authorized" + a);
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult defaultAuth()
+        {
+            var a = User.Claims.FirstOrDefault(x=>x.Type=="azp")?.Value;
+            return Ok("Authorized whit :" + a);
+        }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "second_auth")]
+        public IActionResult secondAuth()
+        {
+            var a = User.Claims.FirstOrDefault(x=>x.Type=="azp")?.Value;
+            return Ok("Authorized whit :" + a);
         }
     }
 }

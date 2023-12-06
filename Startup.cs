@@ -84,6 +84,28 @@ namespace dotnet31Keyclock
                         ClockSkew = TimeSpan.Zero
 
                     };
+                })
+                .AddJwtBearer("second_auth",options =>
+                {
+                    options.Authority = "http://localhost:8181/realms/hsf2"; // Keycloak URL
+                    options.Audience = "account";
+                    options.RequireHttpsMetadata = false;
+
+                    // Require users to pass a JWT token in the Authorization header.
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidAudience = "account",
+
+                        ValidateIssuer = false,
+                        ValidIssuer = "http://localhost:8181",
+
+                        RequireExpirationTime = true,
+                        ValidateLifetime = true,
+
+                        ClockSkew = TimeSpan.Zero
+
+                    };
                 });
         }
 

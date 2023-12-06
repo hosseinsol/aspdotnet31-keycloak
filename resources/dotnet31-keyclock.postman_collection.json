@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "4e5dfb8d-52e9-4331-8ae7-394a4579ea85",
+		"name": "dotnet31-keyclock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1302156"
+	},
+	"item": [
+		{
+			"name": "connectToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "HSF",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "9363152316",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "HSF.Api.Sale api1.read offline_access",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "administrator@localhost",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Administrator1!",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak token from client 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"hsf2Token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "client2",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "hsf",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "hhhhhh",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "yTFB30FLq2D2vGF8LcSXuiJ25rblg6kp",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8181/realms/hsf2/protocol/openid-connect/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"realms",
+						"hsf2",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak token from client 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"hsfToken\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "client1",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "hossein",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "111111",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "IWKQpuleBS2HVVRix9TkjgF1I0Bun8BY",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8181/realms/hsf/protocol/openid-connect/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"realms",
+						"hsf",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/WeatherForecast/defaultAuth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{hsfToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJoZXd0MXlFdmJfQjJGcVptN09KOFJ6R2hwOVlzcXlwMlhfUDdCSWhSZm4wIn0.eyJleHAiOjE3MDE4NTE0NTksImlhdCI6MTcwMTg1MTE1OSwianRpIjoiMzk3OTE3NjUtMmQzOC00ZWMwLTkyMzUtNDQzOGY3ODZjODFkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgxL3JlYWxtcy9oc2YyIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjE1ZjRjODU1LWRiODktNGFiOS1iY2M5LTllZDNkNGJjNGQ1ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsaWVudDIiLCJzZXNzaW9uX3N0YXRlIjoiYTljMzA2NzQtNWY0YS00MmM5LWFlMTItNWYyNWM2YWMzYTA3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1oc2YyIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6ImE5YzMwNjc0LTVmNGEtNDJjOS1hZTEyLTVmMjVjNmFjM2EwNyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6Imhvc3NlaW9uIHNvbCIsInByZWZlcnJlZF91c2VybmFtZSI6ImhzZiIsImdpdmVuX25hbWUiOiJob3NzZWlvbiIsImZhbWlseV9uYW1lIjoic29sIiwiZW1haWwiOiJlbmcuaG9zc2VpbkBnbWFpbC5jb20ifQ.HEYdTTX_wptR10F1xQMNhpzMmWoBrxiWeXnXyTesy-D9PRjPtZDixNGsUqxNUBqqM2VxdA1Yz8KyA3EhH6DFd4Fo4BXgGIjNVynr019Y6cmdZ5KNV42LuiMChPPE_Ob0ojsx9FST1DX-qPJyCa-PMC3vj5k9IYDK6Ihsp4cZ2C8Bk-RaAfAr8jT_jkC81XY2uEwO-yEppGm6uG9XMv1jTWYMAcokgjB99MzQ91Zyw-PoOvbBFTRJDOQFg8tQDhUVacDK_mhVdIUDmMNJMM6VSH-odvfrs35Z83vvz8acgfxj_Wc1uRaVbMibqV3HP_16ht2ow3tCiqgY7vEr53C4Jg"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:5001/WeatherForecast/defaultAuth",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"WeatherForecast",
+						"defaultAuth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/WeatherForecast/secondAuth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{hsf2Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJoZXd0MXlFdmJfQjJGcVptN09KOFJ6R2hwOVlzcXlwMlhfUDdCSWhSZm4wIn0.eyJleHAiOjE3MDE4NTE0NTksImlhdCI6MTcwMTg1MTE1OSwianRpIjoiMzk3OTE3NjUtMmQzOC00ZWMwLTkyMzUtNDQzOGY3ODZjODFkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgxL3JlYWxtcy9oc2YyIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjE1ZjRjODU1LWRiODktNGFiOS1iY2M5LTllZDNkNGJjNGQ1ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsaWVudDIiLCJzZXNzaW9uX3N0YXRlIjoiYTljMzA2NzQtNWY0YS00MmM5LWFlMTItNWYyNWM2YWMzYTA3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1oc2YyIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6ImE5YzMwNjc0LTVmNGEtNDJjOS1hZTEyLTVmMjVjNmFjM2EwNyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6Imhvc3NlaW9uIHNvbCIsInByZWZlcnJlZF91c2VybmFtZSI6ImhzZiIsImdpdmVuX25hbWUiOiJob3NzZWlvbiIsImZhbWlseV9uYW1lIjoic29sIiwiZW1haWwiOiJlbmcuaG9zc2VpbkBnbWFpbC5jb20ifQ.HEYdTTX_wptR10F1xQMNhpzMmWoBrxiWeXnXyTesy-D9PRjPtZDixNGsUqxNUBqqM2VxdA1Yz8KyA3EhH6DFd4Fo4BXgGIjNVynr019Y6cmdZ5KNV42LuiMChPPE_Ob0ojsx9FST1DX-qPJyCa-PMC3vj5k9IYDK6Ihsp4cZ2C8Bk-RaAfAr8jT_jkC81XY2uEwO-yEppGm6uG9XMv1jTWYMAcokgjB99MzQ91Zyw-PoOvbBFTRJDOQFg8tQDhUVacDK_mhVdIUDmMNJMM6VSH-odvfrs35Z83vvz8acgfxj_Wc1uRaVbMibqV3HP_16ht2ow3tCiqgY7vEr53C4Jg"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:5001/WeatherForecast/secondAuth",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"WeatherForecast",
+						"secondAuth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
